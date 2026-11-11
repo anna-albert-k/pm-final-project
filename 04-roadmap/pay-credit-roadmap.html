@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BU Pay & Credit Roadmap</title>
+<style>
+:root{
+  --bg:#f6f7f9;--surface:#ffffff;--text:#16202e;--muted:#5b6678;--border:#dde1e8;
+  --qw:#1f9d55;--qw-bg:#e3f5ea;--mp:#2563eb;--mp-bg:#e4ecfd;--fi:#b7791f;--fi-bg:#fbf0d9;--ts:#c53030;--ts-bg:#fbe5e5;
+  --now:#2563eb;--next:#7c3aed;--later:#64748b;--cut:#c53030;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --bg:#0f1623;--surface:#18202f;--text:#e8edf5;--muted:#9aa6ba;--border:#2a3446;
+    --qw:#4ade80;--qw-bg:#16341f;--mp:#7aa7ff;--mp-bg:#17274a;--fi:#f5c26b;--fi-bg:#3a2e12;--ts:#ff8a8a;--ts-bg:#3d1b1b;
+    --now:#7aa7ff;--next:#b49bff;--later:#9aa6ba;--cut:#ff8a8a;
+  }
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;line-height:1.45}
+.wrap{max-width:1200px;margin:0 auto;padding:28px 20px 48px}
+header h1{margin:0 0 4px;font-size:26px}
+header p{margin:0;color:var(--muted)}
+.meta{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 6px}
+.chip{font-size:12px;padding:4px 10px;border:1px solid var(--border);border-radius:999px;background:var(--surface);color:var(--muted)}
+.anchors{margin:18px 0;padding:14px 16px;background:var(--surface);border:1px solid var(--border);border-radius:12px;font-size:14px}
+.anchors summary{cursor:pointer;font-weight:600}
+.anchors ul{margin:10px 0 0;padding-left:18px;color:var(--muted)}
+.anchors b{color:var(--text)}
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0 22px;align-items:center}
+.filters span{font-size:13px;color:var(--muted);margin-right:4px}
+.filters button{font:inherit;font-size:13px;padding:6px 12px;border-radius:999px;border:1px solid var(--border);background:var(--surface);color:var(--text);cursor:pointer}
+.filters button.active{background:var(--text);color:var(--bg);border-color:var(--text)}
+.lanes{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media(max-width:900px){.lanes{grid-template-columns:1fr}}
+.lane{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:14px;border-top-width:4px}
+.lane.now{border-top-color:var(--now)}.lane.next{border-top-color:var(--next)}.lane.later{border-top-color:var(--later)}
+.lane h2{margin:0;font-size:15px;letter-spacing:.06em}
+.lane .sub{font-size:12px;color:var(--muted);margin:2px 0 12px}
+.card{border:1px solid var(--border);border-radius:10px;padding:12px;margin-bottom:10px;background:var(--bg);cursor:pointer;transition:opacity .15s}
+.card.dim{opacity:.25}
+.card:focus-visible{outline:2px solid var(--mp);outline-offset:2px}
+.top{display:flex;justify-content:space-between;gap:8px;align-items:flex-start}
+.id{font-size:11px;font-weight:700;color:var(--muted);letter-spacing:.05em}
+.name{font-weight:600;font-size:14.5px;margin:2px 0 8px}
+.badge{font-size:11px;font-weight:700;padding:3px 8px;border-radius:6px;white-space:nowrap}
+.q-qw{background:var(--qw-bg);color:var(--qw)}
+.q-mp{background:var(--mp-bg);color:var(--mp)}
+.q-fi{background:var(--fi-bg);color:var(--fi)}
+.q-ts{background:var(--ts-bg);color:var(--ts)}
+.rat{font-size:13px;color:var(--muted);margin:0}
+.scores{display:none;margin-top:10px;font-size:12px;gap:14px}
+.card.open .scores{display:flex}
+.scores div{padding:4px 8px;border:1px solid var(--border);border-radius:6px;background:var(--surface)}
+.empty{font-size:13px;color:var(--muted);padding:10px;border:1px dashed var(--border);border-radius:10px;text-align:center}
+.cut{margin-top:22px;background:var(--surface);border:1px solid var(--border);border-top:4px solid var(--cut);border-radius:14px;padding:14px}
+.cut h2{margin:0;font-size:15px;letter-spacing:.06em;color:var(--cut)}
+.cut .sub{font-size:12px;color:var(--muted);margin:2px 0 12px}
+.cutgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+@media(max-width:900px){.cutgrid{grid-template-columns:1fr}}
+.cut .card .name{text-decoration:line-through;text-decoration-color:var(--muted)}
+.legend{margin-top:20px;font-size:12px;color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>BU Pay & Credit Roadmap</h1>
+    <p>Riverty's first consumer card · Module 4 prioritization</p>
+    <div class="meta">
+      <span class="chip">Team (assumed): 4 engineers, 1 designer, 1 PM</span>
+      <span class="chip">Window: 12 weeks, 2 week sprints</span>
+      <span class="chip">Sample data, fictional</span>
+    </div>
+  </header>
+
+  <details class="anchors">
+    <summary>Strategic anchors</summary>
+    <ul>
+      <li><b>Persona:</b> Heavy BNPL user aged 25-34, 4+ pay later orders a month across several providers, who wants to pay only for what she keeps and see what she owes in one place.</li>
+      <li><b>Primary metric:</b> Month 2 activity rate of activated heavy users. Baseline 51.0% to 57.1%, target 65% or more.</li>
+      <li><b>Moment of misery:</b> She cannot see in one place what she owes on the card and on regular pay later orders (N-07, T-103), and gets two reminders for different amounts in the same week (T-104).</li>
+      <li><b>Guardrail:</b> Existing pay later checkout volume per active user must not fall, and overall decline rate stays at or below 3.5%.</li>
+    </ul>
+  </details>
+
+  <div class="filters" id="filters">
+    <span>Filter by quadrant:</span>
+    <button class="active" data-q="all">All</button>
+    <button data-q="mp">Major Project</button>
+    <button data-q="fi">Fill-In</button>
+    <button data-q="ts">Time Sinker</button>
+    <button data-q="qw">Quick Win</button>
+  </div>
+
+  <div class="lanes" id="lanes"></div>
+
+  <section class="cut">
+    <h2>CUT LIST</h2>
+    <div class="sub">Not worth building for this persona and metric</div>
+    <div class="cutgrid" id="cut"></div>
+  </section>
+
+  <p class="legend">Click a card to see its Value and Effort scores. Quadrant rule: Value 4 or more is high, Effort 2 or less is low. Effort scores are PM judgment, not from the data pack.</p>
+</div>
+
+<script>
+const Q = {
+  qw:{label:"Quick Win"}, mp:{label:"Major Project"}, fi:{label:"Fill-In"}, ts:{label:"Time Sinker"}
+};
+const lanes = [
+  {key:"now", title:"NOW", sub:"This sprint", items:[
+    {id:"B3", name:"One balance view for card and pay later orders", v:5, e:3, q:"mp",
+     r:"Directly removes the moment of misery (N-07, T-103) and is the feature most likely to lift Month 2 activity."},
+    {id:"B1", name:"Decline reason and retry hint", v:3, e:2, q:"fi",
+     r:"Cheap, needs no policy approval, and protects the 3.5% decline guardrail (T-101, N-06). Decline rate hit 3.5% in Month 4."},
+    {id:"B8", name:"Submit terms approval request for B8", v:null, e:null, q:null, task:true,
+     r:"Not a build. Approval takes months (N-11), so the request starts in sprint 1 to keep B8 inside the window."}
+  ]},
+  {key:"next", title:"NEXT", sub:"The following sprints", items:[
+    {id:"B8", name:"One due date for card and pay later orders", v:4, e:5, q:"mp",
+     r:"Removes the T-104 double reminders and supports B3, but touches credit policy and terms, and approval takes months (N-11)."},
+    {id:"B2", name:"Add to phone wallet from the approval screen", v:2, e:2, q:"fi",
+     r:"Fixes a real leak (143 cards never reached the wallet, T-102), but mainly helps in-store use, and heavy users are only 12.1% in-store."}
+  ]},
+  {key:"later", title:"LATER", sub:"Backlog", items:[
+    {id:"B4", name:"Choose pay now or pay later per purchase after paying", v:3, e:4, q:"ts",
+     r:"Supports control, but no evidence it changes Month 2 activity, and it likely needs product and terms changes."}
+  ]}
+];
+const cut = [
+  {id:"B5", name:"Offers from partner merchants inside the card app", v:2, e:4, q:"ts",
+   r:"Interest comes from merchants (N-09), not the persona, and it needs merchant integrations."},
+  {id:"B6", name:"Cashback on every purchase", v:2, e:3, q:"ts",
+   r:"N-12 says cashback drives a trial, not continued use, so it is weak on retention and adds margin cost."},
+  {id:"B7", name:"Physical card", v:2, e:5, q:"ts",
+   r:"No evidence it addresses the friction, and it is costly to produce and ship."}
+];
+
+function card(it){
+  const el = document.createElement("div");
+  el.className = "card";
+  el.tabIndex = 0;
+  el.dataset.q = it.q || "task";
+  const badge = it.task
+    ? '<span class="badge q-fi" style="background:var(--surface);color:var(--muted);border:1px solid var(--border)">Task</span>'
+    : `<span class="badge q-${it.q}">${Q[it.q].label}</span>`;
+  const scores = it.task ? "" : `<div class="scores"><div>Value ${it.v}</div><div>Effort ${it.e}</div></div>`;
+  el.innerHTML = `<div class="top"><div><div class="id">${it.id}</div><div class="name">${it.name}</div></div>${badge}</div><p class="rat">${it.r}</p>${scores}`;
+  const toggle = () => el.classList.toggle("open");
+  el.addEventListener("click", toggle);
+  el.addEventListener("keydown", e => { if(e.key==="Enter"||e.key===" "){e.preventDefault();toggle();} });
+  return el;
+}
+
+const lanesEl = document.getElementById("lanes");
+lanes.forEach(l => {
+  const d = document.createElement("div");
+  d.className = "lane " + l.key;
+  d.innerHTML = `<h2>${l.title}</h2><div class="sub">${l.sub}</div>`;
+  if(!l.items.length){ d.innerHTML += '<div class="empty">Nothing here</div>'; }
+  l.items.forEach(it => d.appendChild(card(it)));
+  lanesEl.appendChild(d);
+});
+const cutEl = document.getElementById("cut");
+cut.forEach(it => cutEl.appendChild(card(it)));
+
+document.getElementById("filters").addEventListener("click", e => {
+  const b = e.target.closest("button"); if(!b) return;
+  document.querySelectorAll("#filters button").forEach(x => x.classList.remove("active"));
+  b.classList.add("active");
+  const q = b.dataset.q;
+  document.querySelectorAll(".card").forEach(c => {
+    c.classList.toggle("dim", q !== "all" && c.dataset.q !== q);
+  });
+});
+</script>
+</body>
+</html>
